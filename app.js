@@ -1,3 +1,6 @@
+//note: Closely following the lab-express-sql-seed-read Tuner app, which was following the bookmarks2 app.
+
+
 //DEPENDENCIES and CONFIGURATIONS
 const express = require('express');
 const app = express();
@@ -14,14 +17,11 @@ app.get('/', (request, response) => {
 });
 
 
-app.get("/transactions", (request, response) => {
-    response.send("/transactions - The index page. Index/GET/Read and Create/POST/Create!");
-});
+// ROUTES that implement the index route that uses pg-promise to query the database
+const transactionsController = require("./controllers/transactionsController");
+app.use("/transactions", transactionsController);
 
-app.get("/transactions/:id", (request, response) => {
-    response.send("/transactions:id - Show/GET/Read, Destroy/DELETE/Delete, and Update/PUT/Update)");
-});
-
+// 404 PAGE
 app.get("*", (request, response) => {
     response.send("Oh, no! There is no page here. 404");
 });
